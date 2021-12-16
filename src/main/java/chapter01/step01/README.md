@@ -18,8 +18,9 @@
 ### 1. 이벤트 당첨자에게 초대장을 보내보자!!
 
 Invitation.java
+
 ```java
-package chapter01;
+package chapter01.step01;
 
 import java.time.LocalDateTime;
 
@@ -30,8 +31,9 @@ public class Invitaion {
 ```
 
 Ticket.java
+
 ```java
-package chapter01;
+package chapter01.step01;
 
 public class Ticket {
     private Long fee;
@@ -43,8 +45,9 @@ public class Ticket {
 ```
 
 Bag.java
+
 ```java
-package chapter01;
+package chapter01.step01;
 
 public class Bag {
     private Long amount;
@@ -83,8 +86,9 @@ public class Bag {
 ```
 
 Audience.java
+
 ```java
-package chapter01;
+package chapter01.step01;
 
 public class Audience {
     private Bag bag;
@@ -100,8 +104,9 @@ public class Audience {
 ```
 
 TicketOffice.java
+
 ```java
-package chapter01;
+package chapter01.step01;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -130,8 +135,9 @@ public class TicketOffice {
 ```
 
 TicketSeller.java
+
 ```java
-package chapter01;
+package chapter01.step01;
 
 public class TicketSeller {
     private TicketOffice ticketOffice;
@@ -150,8 +156,9 @@ public class TicketSeller {
 완성하면 끝이다.
 
 Theater.java
+
 ```java
-package chapter01;
+package chapter01.step01;
 
 public class Theater {
     private TicketSeller ticketSeller;
@@ -164,8 +171,7 @@ public class Theater {
         if (audience.getBag().hasInvitation()) {
             Ticket ticket = ticketSeller.getTicketOffice().getTicket();
             audience.getBag().setTicket(ticket);
-        }
-        else {
+        } else {
             Ticket ticket = ticketSeller.getTicketOffice().getTicket();
             audience.getBag().minusAmount(ticket.getFee());
             ticketSeller.getTicketOffice().plusAmount(ticket.getFee());
@@ -175,5 +181,5 @@ public class Theater {
 }
 ```
 
-
-
+자 구현을 마쳤다. 프로그램은 동작하고 로직도 간단하다. 하지만 여기엔 문제점들이 숨어있다.
+우리는 이것을 찾아 고쳐나가보도록 하자.
