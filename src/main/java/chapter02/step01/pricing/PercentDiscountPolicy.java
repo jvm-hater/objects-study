@@ -5,13 +5,11 @@ import chapter02.step01.DiscountPolicy;
 import chapter02.step01.Money;
 import chapter02.step01.Screening;
 
-import java.util.List;
-
 public class PercentDiscountPolicy extends DiscountPolicy {
     private double percent;
 
-    public PercentDiscountPolicy(List<DiscountCondition> conditons, double percent) {
-        super(conditons);
+    public PercentDiscountPolicy(double percent, DiscountCondition... conditions) {
+        super(conditions);
         this.percent = percent;
     }
 
