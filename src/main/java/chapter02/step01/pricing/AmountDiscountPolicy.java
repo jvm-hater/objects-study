@@ -10,8 +10,8 @@ import java.util.List;
 public class AmountDiscountPolicy extends DiscountPolicy {
     private Money discountAmount;
 
-    public AmountDiscountPolicy(List<DiscountCondition> conditons, Money discountAmount) {
-        super(conditons);
+    public AmountDiscountPolicy(Money discountAmount, DiscountCondition... conditions) {
+        super(conditions);
         this.discountAmount = discountAmount;
     }
 

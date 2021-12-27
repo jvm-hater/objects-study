@@ -1,17 +1,18 @@
 package chapter02.step01;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public abstract class DiscountPolicy {
-    private List<DiscountCondition> conditons = new ArrayList<>();
+    private List<DiscountCondition> conditions;
 
-    public DiscountPolicy(List<DiscountCondition> conditons) {
-        this.conditons = conditons;
+    public DiscountPolicy(DiscountCondition ... conditions) {
+        this.conditions = Arrays.asList(conditions);
     }
 
-    public Money calcuateDiscountAmount(Screening screening) {
-        for (DiscountCondition each : conditons) {
+    public Money calculateDiscountAmount(Screening screening) {
+        for (DiscountCondition each : conditions) {
             if (each.isSatisfiedBy(screening)) {
                 return getDiscountAmount(screening);
             }
