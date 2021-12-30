@@ -373,3 +373,23 @@ public class PercentDiscountPolicy extends DiscountPolicy {
 
 필드에 percent를 통해 일정 비율을 정하여 getDiscountAmount 메서드를 통하여
 비율 만큼 할인 금액에서 차감 한다.
+
+하지만 여기서 우리는 여러개의 할인 정책을 DiscountPolicy가 받을 수 있도록 설계했지만
+Movie는 단 한개의 인스턴스만 받을 수 있다.
+
+```java
+class MovieTest {
+   Movie givenAbatar() {
+      return new Movie(
+              "아바타",
+              Duration.ofMinutes(120),
+              Money.wons(10000),
+              new AmountDiscountPolicy(Money.wons(800)),
+              abatarCondition
+      );
+   }
+}
+```
+다음 코드를 보면 아바타에 대한 할인 정책과 조건을 두 개 의 순서 조건과 두 개의 기간 조건
+을 이용해 할인 여부를 판단하는 것을 알 수 있다. 이 때 우리는 어떻게 해야할까?
+
