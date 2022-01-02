@@ -23,4 +23,12 @@ public class Movie {
     public Money calculateMovieFee(Screening screening) {
         return fee.minus(discountPolicy.calculateDiscountAmount(screening));
     }
+
+    /**
+     * 할인 정책 변경시 변경 메소드를 통해 확실한 의사를 전달 해야 한다.
+     * @param discountPolicy
+     */
+    public void changeDiscountPolicy(DiscountPolicy discountPolicy) {
+        this.discountPolicy = discountPolicy;
+    }
 }
