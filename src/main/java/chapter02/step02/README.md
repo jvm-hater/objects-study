@@ -104,7 +104,7 @@ DiscountPolicy를 추상클래스로 구현함으로 자식 클래스들이 인�
 1. 추상화의 계층만 따로 떼어놓고 살펴보면 요구사항의 정책을 높은 수준에서 서술할 수 있다.
 2. 추상화를 이용하여 더욱 유연한 설계가 가능해진다.
 
-![untitle](file:///C:/Users/%EB%85%B8%EA%B2%BD%ED%83%9C/Downloads/Untitled%20Diagram.drawio.html)
+![untitle](file:///C:/Users/%EB%85%B8%EA%B2%BD%ED%83%9C/Downloads/Untitled%20Diagram.drawio.svg)
 
 우선 첫 번째 장점부터 살펴보자. 위 그림과 같은 설계 구조를 살펴보면 "영화 예매 요금은
 최대 하나의 할인 정책과 다수의 할인 조건을 이용해 계산할 수 있다." 로 표현할 수 있다.
