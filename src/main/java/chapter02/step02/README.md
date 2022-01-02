@@ -111,7 +111,105 @@ DiscountPolicy를 추상클래스로 구현함으로 자식 클래스들이 인�
 이것은 할인 정책과 할인 조건이라는 좀 더 추상적인 개념들을 이용해서 문장을 작성했기 때문
 이다.
 
+추상화를 이용해 상위 정책을 기술한다는 것은 기본적인 애플리케이션의 협력 흐름을 기술한
+다는 것을 의미한다. 영화의 예매 가격을 계산하기 위한 흐름은 항상 Movie에서 DiscountPolicy
+로, 그리고 다시 DiscountCondition을 향해 흐른다. 할인 정책이나 조건의 새로운 자식 
+클래스들은 추상화를 이용해서 정의한 상위의 협력 흐름을 그대로 따르게 된다.
 
+이 개념이 핵심이다. 재사용 가능한 설계의 기본을 이루는 디자인 패턴이나 프레임워크 모두
+추상화를 이용해 정책을 정의하는 매커니즘을 활용하고 있기 때문이다.
 
+### 유연한 설계
+
+다음 코드를 살펴보자
+```java
+public class Movie {
+    public Money calculateMovieFee(Screening screening) {
+        if (discountPolicy == null) {
+            return fee;
+        }
+        
+        return fee.minus(discountPolicy.calculateDiscountAmount(screening));
+    }
+}
+```
+
+이 방식은 할인 정ㅇ책이 없는 경우를 예외 케이스로만 표현했을 뿐 저게 무엇인지 알 수 가
+없다. 즉, 협력 방식이 무너지게 되는 것이다. 할인 정책이 없는 경우를 DiscountPolicy가
+아닌 Movie가 판단하고 있다. 따라서 책임의 위치를 결정하기 위해 조건문을 사용하는  것은
+설계 측면에서 좋지 않은 설계가 될 수 있다.
+
+항상 예외 케이스를 최소화하고 일관성을 유지할 수 있는 방법을 선택하자!!
+
+그렇다면 그렇게 리펙토링도 해보자.
+
+NoneDiscountPolicy.java
+```java
+public class NoneDiscountPolicy extends DiscountPolicy {
+
+    @Override
+    public Money calculateDiscountAmount(Screening screening) {
+        return Money.ZERO;
+    }
+}
+```
+이제 확실하게 할인 되지 않은 영화를 생성할 수 있다.
+
+여기서 중요한건 우리는 단지 NoneDiscountPolicy라는 클래스를 추가하기만 했는데
+기능이 확장이 됐다는 점이다. 이처럼 추상화를 중심으로 코드의 구조를 설계하면 유연하고
+확장 가능한 설계를 만들 수 있다.
+
+### 추상 클래스와 인터페이스 트레이드 오프
+
+위의 NoneDiscountPolicy 클래스의 코드를 살펴보면 getDiscountAmount() 메서드가 어떤 값을 
+반환하더라도 상관이 없다는 것을 알 수 있다. 어차피 0을 반환하기 때문이다.
+
+그렇다면 DiscountPolicy클래스를 인터페이스로 변경해보자.
+
+DiscountPolicy.java
+```java
+public interface DiscountPolicy {
+    Money calculateDiscountAmount(Screening screening);
+}
+```
+
+원래의 DiscountPolicy 클래스의 이름을 DefaultDiscountPolicy로 변경하고 인터페이스를
+구현하도록 수정하자.
+
+```java
+package chapter02.step02.pricing;
+
+import chapter02.step02.DiscountCondition;
+import chapter02.step02.DiscountPolicy;
+import chapter02.step02.Money;
+import chapter02.step02.Screening;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public abstract class DefaultDiscountPolicy implements DiscountPolicy {
+    private List<DiscountCondition> conditions = new ArrayList<>();
+
+    public DefaultDiscountPolicy(DiscountCondition ... conditions) {
+        this.conditions = Arrays.asList(conditions);
+    }
+
+    @Override
+    public Money calculateDiscountAmount(Screening screening) {
+        for (DiscountCondition condition : conditions) {
+            if (condition.isSatisfiedBy(screening)) {
+                return getDiscountAmount(screening);
+            }
+        }
+        
+        return Money.ZERO;
+    }
+
+    protected abstract Money getDiscountAmount(Screening screening);
+}
+```
+
+그렇다면 이제 설계도를 봐보도록하자.
 
 
