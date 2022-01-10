@@ -104,7 +104,7 @@ DiscountPolicy를 추상클래스로 구현함으로 자식 클래스들이 인�
 1. 추상화의 계층만 따로 떼어놓고 살펴보면 요구사항의 정책을 높은 수준에서 서술할 수 있다.
 2. 추상화를 이용하여 더욱 유연한 설계가 가능해진다.
 
-<img src="/static/그림2.14.png" alt="그림 2.14" height="91" width="581">
+<img src="/static/그림2.14.png" alt="그림 2.14" height="91" width="581"></img>
 
 우선 첫 번째 장점부터 살펴보자. 위 그림과 같은 설계 구조를 살펴보면 "영화 예매 요금은
 최대 하나의 할인 정책과 다수의 할인 조건을 이용해 계산할 수 있다." 로 표현할 수 있다.
@@ -212,7 +212,7 @@ public abstract class DefaultDiscountPolicy implements DiscountPolicy {
 
 그렇다면 이제 설계도를 봐보도록하자.
 
-<img src="/static/그림2.15.png" alt="그림 2.15" width="761" height="401">
+<img src="/static/그림2.15.png" alt="그림 2.15" width="761" height="401"></img>
 
 인터페이스를 사용하도록 변경된 설계가 이상적으로는 더 좋지만 현실적으로는 NoneDiscountPolicy
 만을 위해 인터페이스를 추가하는 것이 과하다고 생각이 들 수 있다.
