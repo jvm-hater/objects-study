@@ -212,7 +212,7 @@ public abstract class DefaultDiscountPolicy implements DiscountPolicy {
 
 그렇다면 이제 설계도를 봐보도록하자.
 
-<img src="/static/그림2.15.png" alt="그림 2.15" width="761" height="401"></img>
+<img src="/static/그림2.15.png" alt="그림 2.15" height="401" width="761"></img>
 
 인터페이스를 사용하도록 변경된 설계가 이상적으로는 더 좋지만 현실적으로는 NoneDiscountPolicy
 만을 위해 인터페이스를 추가하는 것이 과하다고 생각이 들 수 있다.
