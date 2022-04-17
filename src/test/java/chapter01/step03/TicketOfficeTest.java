@@ -1,4 +1,4 @@
-package chapter01.step02;
+package chapter01.step03;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -6,43 +6,41 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-@DisplayName("TicketSeller 테스트")
-class TicketSellerTest {
+@DisplayName("TicketOffice 테스트")
+class TicketOfficeTest {
 
     private long ticketOfficeAmount;
     private long ticketAmount;
     private TicketOffice ticketOffice;
-    private TicketSeller ticketSeller;
 
     @BeforeEach
     void setUp() {
-        ticketOfficeAmount = 10000L;
-        ticketAmount = 500L;
         ticketOffice = new TicketOffice(ticketOfficeAmount, new Ticket(ticketAmount), new Ticket(ticketAmount));
-        ticketSeller = new TicketSeller(ticketOffice);
     }
 
     @Test
-    @DisplayName("초대장을 받고 티켓을 판매한다.")
-    void sellTo_use_invitation() {
+    @DisplayName("초대장이 관람객에게는 돈을 받지 않고 티켓을 준다.")
+    void sellTicketTo_with_invitation() {
         long amount = 1000L;
         Bag bag = new Bag(new Invitation(), amount);
         Audience audience = new Audience(bag);
+        ticketOffice.sellTicketTo(audience);
 
-        ticketSeller.sellTo(audience);
         assertThat(ticketOffice.getAmount()).isEqualTo(ticketOfficeAmount);
         assertThat(bag.getAmount()).isEqualTo(amount);
+        assertThat(bag.hasTicket()).isTrue();
     }
 
     @Test
-    @DisplayName("돈을 받고 티켓을 판매한다.")
-    void sellTo_use_amount() {
+    @DisplayName("초대장이 없는 관람객에게는 돈을 받고 티켓을 준다.")
+    void sellTicketTo_with_amount() {
         long amount = 1000L;
         Bag bag = new Bag(amount);
         Audience audience = new Audience(bag);
+        ticketOffice.sellTicketTo(audience);
 
-        ticketSeller.sellTo(audience);
         assertThat(ticketOffice.getAmount()).isEqualTo(ticketOfficeAmount + ticketAmount);
         assertThat(bag.getAmount()).isEqualTo(amount - ticketAmount);
+        assertThat(bag.hasTicket()).isTrue();
     }
 }

@@ -1,4 +1,4 @@
-package chapter01.step02;
+package chapter01.step03;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -31,5 +31,4 @@ class AudienceTest {
         assertThat(audience.buy(new Ticket(ticketAmount))).isEqualTo(ticketAmount);
         assertThat(bag.getAmount()).isEqualTo(amount - ticketAmount);
     }
-
 }
