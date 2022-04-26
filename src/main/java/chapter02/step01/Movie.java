@@ -1,5 +1,7 @@
 package chapter02.step01;
 
+import chapter02.step01.discount.DiscountPolicy;
+
 import java.time.Duration;
 
 public class Movie {
